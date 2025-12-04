@@ -4,6 +4,7 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import KioskPage from './pages/KioskPage';
 import AdminPage from './pages/AdminPage';
 import LoginPage from './pages/LoginPage';
+import ThemeToggle from './components/ThemeToggle';
 
 export const ThemeContext = createContext({ dark: false, toggle: () => {} });
 
@@ -25,15 +26,9 @@ export default function App() {
 
   return (
     <ThemeContext.Provider value={themeValue}>
-      <div className={dark ? 'bg-gray-900 text-white min-h-screen' : 'bg-gray-50 text-gray-900 min-h-screen'}>
+      <div className="min-h-screen transition-colors duration-300 bg-[var(--bg-primary)] text-[var(--text-primary)]">
         <div className="fixed top-4 right-4 z-50">
-          <button
-            onClick={themeValue.toggle}
-            className="px-3 py-2 rounded shadow bg-white dark:bg-gray-800 dark:text-white border border-gray-300 dark:border-gray-700 transition-all hover:scale-105"
-            aria-label="Toggle dark mode"
-          >
-            {dark ? '🌙 Modo Oscuro' : '☀️ Modo Claro'}
-          </button>
+          <ThemeToggle />
         </div>
         <BrowserRouter>
           <Routes>

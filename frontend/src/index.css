@@ -2,63 +2,163 @@
 @tailwind components;
 @tailwind utilities;
 
-/* Minimal Techno Kiosk Customizations */
-body {
-	background: linear-gradient(135deg, #0f2027 0%, #2c5364 100%);
-	min-height: 100vh;
-	font-family: 'Inter', 'Roboto', 'Segoe UI', Arial, sans-serif;
-	letter-spacing: 0.01em;
+:root {
+  --bg-primary: #f3f4f6;
+  --text-primary: #1f2937;
+  --glass-bg: rgba(255, 255, 255, 0.7);
+  --glass-border: rgba(255, 255, 255, 0.5);
+  --glass-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.1);
+  
+  /* Button Gradients */
+  --btn-entry-from: #43e97b;
+  --btn-entry-to: #38f9d7;
+  --btn-entry-text: #0f2027;
+  
+  --btn-exit-from: #fa709a;
+  --btn-exit-to: #fee140;
+  --btn-exit-text: #2c5364;
 }
 
+.dark {
+  --bg-primary: #0f172a; /* Slate 900 */
+  --text-primary: #f9fafb;
+  --glass-bg: rgba(30, 41, 59, 0.7); /* Slate 800 with opacity */
+  --glass-border: rgba(255, 255, 255, 0.1);
+  --glass-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.3);
+}
+
+body {
+  background-color: var(--bg-primary);
+  color: var(--text-primary);
+  min-height: 100vh;
+  font-family: 'Inter', 'Roboto', 'Segoe UI', Arial, sans-serif;
+  letter-spacing: 0.01em;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+/* Kiosk Styles */
 .kiosk-glass {
-	background: rgba(255,255,255,0.10);
-	border-radius: 2rem;
-	box-shadow: 0 8px 32px 0 rgba(31,38,135,0.18);
-	backdrop-filter: blur(8px);
-	border: 1.5px solid rgba(255,255,255,0.18);
+  background: var(--glass-bg);
+  border-radius: 2rem;
+  box-shadow: var(--glass-shadow);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid var(--glass-border);
+  transition: background 0.3s ease, border-color 0.3s ease;
 }
 
 .kiosk-btn {
-	transition: all 0.18s cubic-bezier(.4,0,.2,1);
-	font-size: 2.5rem;
-	font-weight: 700;
-	border-radius: 1.5rem;
-	padding: 2.2rem 3.5rem;
-	box-shadow: 0 4px 24px 0 rgba(0,0,0,0.10);
-	border: none;
-	outline: none;
-	margin: 0 1.5rem;
-	cursor: pointer;
+  transition: all 0.2s cubic-bezier(.4,0,.2,1);
+  font-size: 2.5rem;
+  font-weight: 700;
+  border-radius: 1.5rem;
+  padding: 2.2rem 3.5rem;
+  box-shadow: 0 4px 24px 0 rgba(0,0,0,0.10);
+  border: none;
+  outline: none;
+  margin: 0 1.5rem;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
+
 .kiosk-btn.entrada {
-	background: linear-gradient(90deg, #43e97b 0%, #38f9d7 100%);
-	color: #0f2027;
+  background: linear-gradient(90deg, var(--btn-entry-from) 0%, var(--btn-entry-to) 100%);
+  color: var(--btn-entry-text);
 }
+
 .kiosk-btn.salida {
-	background: linear-gradient(90deg, #fa709a 0%, #fee140 100%);
-	color: #2c5364;
+  background: linear-gradient(90deg, var(--btn-exit-from) 0%, var(--btn-exit-to) 100%);
+  color: var(--btn-exit-text);
 }
+
 .kiosk-btn:active {
-	transform: scale(0.97);
+  transform: scale(0.97);
+}
+
+.kiosk-btn:hover {
+  transform: scale(1.05);
+  box-shadow: 0 6px 28px 0 rgba(0,0,0,0.15);
 }
 
 .kiosk-title {
-	font-size: 3.2rem;
-	font-weight: 900;
-	color: #fff;
-	text-shadow: 0 2px 16px #0004;
-	margin-bottom: 2.5rem;
-	letter-spacing: 0.04em;
+  font-size: 3.2rem;
+  font-weight: 900;
+  color: var(--text-primary);
+  margin-bottom: 2.5rem;
+  letter-spacing: 0.04em;
+  text-align: center;
 }
 
 .kiosk-feedback {
-	margin-top: 2.5rem;
-	font-size: 1.5rem;
-	font-weight: 600;
-	border-radius: 1rem;
-	padding: 1.2rem 2.2rem;
-	background: rgba(255,255,255,0.18);
-	color: #fff;
-	box-shadow: 0 2px 12px 0 rgba(0,0,0,0.10);
-	text-align: center;
+  margin-top: 2.5rem;
+  font-size: 1.5rem;
+  font-weight: 600;
+  border-radius: 1rem;
+  padding: 1.2rem 2.2rem;
+  background: rgba(255,255,255,0.18);
+  color: inherit;
+  box-shadow: 0 2px 12px 0 rgba(0,0,0,0.10);
+  text-align: center;
+}
+
+/* Toggle Switch Styles */
+.theme-toggle-wrapper {
+  display: flex;
+  align-items: center;
+}
+
+.theme-toggle-checkbox {
+  height: 0;
+  width: 0;
+  visibility: hidden;
+  position: absolute;
+}
+
+.theme-toggle-label {
+  cursor: pointer;
+  text-indent: -9999px;
+  width: 52px;
+  height: 28px;
+  background: #cbd5e1; /* Slate 300 */
+  display: block;
+  border-radius: 100px;
+  position: relative;
+  transition: background 0.3s;
+}
+
+.theme-toggle-label:after {
+  content: '';
+  position: absolute;
+  top: 2px;
+  left: 2px;
+  width: 24px;
+  height: 24px;
+  background: #fff;
+  border-radius: 90px;
+  transition: 0.3s;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+}
+
+.theme-toggle-checkbox:checked + .theme-toggle-label {
+  background: #3b82f6; /* Blue 500 */
+}
+
+.theme-toggle-checkbox:checked + .theme-toggle-label:after {
+  left: calc(100% - 2px);
+  transform: translateX(-100%);
+}
+
+.theme-toggle-checkbox:active + .theme-toggle-label:after {
+  width: 30px;
+}
+
+@keyframes fadein {
+  from { opacity: 0; transform: scale(0.95); }
+  to { opacity: 1; transform: scale(1); }
+}
+
+.animate-fadein {
+  animation: fadein 0.2s ease-out forwards;
 }
