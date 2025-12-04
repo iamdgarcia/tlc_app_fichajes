@@ -10,7 +10,7 @@ export default function LoginPage() {
     e.preventDefault();
     setError(null);
     try {
-      await axios.post('/api/admin/login', { dni, password });
+      await axios.post('/api/admin/login', { dni, password }, { withCredentials: true });
       window.location.href = '/admin';
     } catch (err) {
       setError('Credenciales incorrectas');

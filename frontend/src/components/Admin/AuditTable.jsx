@@ -6,7 +6,7 @@ export default function AuditTable() {
   const [filters, setFilters] = useState({ date: '', dni: '' });
 
   const fetchClockings = () => {
-    axios.get('/api/admin/audit', { params: filters }).then(res => setClockings(res.data));
+    axios.get('/api/admin/audit', { params: filters, withCredentials: true }).then(res => setClockings(res.data));
   };
   useEffect(() => { fetchClockings(); }, [filters]);
 

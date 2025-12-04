@@ -1,13 +1,25 @@
 require('dotenv').config();
 const express = require('express');
 const path = require('path');
+
 const cors = require('cors');
+
+const cookieParser = require('cookie-parser');
 const { PrismaClient } = require('@prisma/client');
 const prisma = new PrismaClient();
 const app = express();
 
-app.use(cors());
+// CORS para desarrollo: permite cookies y credenciales desde Vite
+
+app.use(cors({
+  origin: [
+    'http://localhost:5173',
+    'http://localhost:3000'
+  ],
+  credentials: true
+}));
 app.use(express.json());
+app.use(cookieParser());
 
 // --- API ROUTES ---
 app.use('/api/users', require('./routes/users'));

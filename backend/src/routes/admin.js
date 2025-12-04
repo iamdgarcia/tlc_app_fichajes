@@ -14,7 +14,12 @@ router.post('/login', async (req, res) => {
     const valid = await bcrypt.compare(password, user.password);
     if (!valid) return res.status(401).json({ error: 'No autorizado' });
     const token = jwt.sign({ id: user.id, role: user.role }, process.env.JWT_SECRET || 'secret', { expiresIn: '1d' });
-    res.cookie('token', token, { httpOnly: true, sameSite: 'lax' });
+    // En desarrollo, secure: false y sameSite: 'lax'. En producción, secure: true y sameSite: 'none'.
+    res.cookie('token', token, {
+      httpOnly: true,
+      sameSite: process.env.NODE_ENV === 'production' ? 'none' : 'lax',
+      secure: process.env.NODE_ENV === 'production'
+    });
     res.json({ ok: true });
   } catch (e) {
     res.status(500).json({ error: 'Error de login' });

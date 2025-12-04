@@ -7,8 +7,8 @@ export default function AdminDashboard() {
   const [chartData, setChartData] = useState([]);
 
   useEffect(() => {
-    axios.get('/api/admin/kpi').then(res => setKpi(res.data));
-    axios.get('/api/admin/chart').then(res => setChartData(res.data));
+    axios.get('/api/admin/kpi', { withCredentials: true }).then(res => setKpi(res.data));
+    axios.get('/api/admin/chart', { withCredentials: true }).then(res => setChartData(res.data));
   }, []);
 
   return (
