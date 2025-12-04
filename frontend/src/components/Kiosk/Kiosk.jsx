@@ -56,11 +56,38 @@ export default function Kiosk() {
         )}
       </div>
 
-      {/* Modal popup flotante */}
+      {/* Modal popup flotante - rendered via portal to modal-root */}
       {modal && createPortal(
-        <div className="fixed inset-0 z-[9999] flex items-center justify-center p-4">
-          <div className="absolute inset-0 bg-black bg-opacity-60 backdrop-blur-sm" onClick={() => setModal(false)} />
-          <div className="kiosk-glass flex flex-col items-center min-w-[340px] px-10 py-12 relative animate-fadein z-10 shadow-2xl border-2 border-blue-400">
+        <div 
+          className="flex items-center justify-center p-4"
+          style={{
+            position: 'fixed',
+            top: 0,
+            left: 0,
+            right: 0,
+            bottom: 0,
+            zIndex: 99999,
+          }}
+        >
+          <div 
+            style={{
+              position: 'fixed',
+              top: 0,
+              left: 0,
+              right: 0,
+              bottom: 0,
+              backgroundColor: 'rgba(0, 0, 0, 0.6)',
+              backdropFilter: 'blur(4px)',
+            }}
+            onClick={() => setModal(false)} 
+          />
+          <div 
+            className="kiosk-glass flex flex-col items-center min-w-[340px] px-10 py-12 animate-fadein shadow-2xl border-2 border-blue-400"
+            style={{
+              position: 'relative',
+              zIndex: 100000,
+            }}
+          >
             <h2 className="text-2xl font-bold mb-8 text-[var(--text-primary)] tracking-wide">Introduce tu DNI</h2>
             <input
               className="border-2 border-blue-400 px-8 py-4 rounded-xl mb-8 text-2xl text-center focus:outline-none focus:border-blue-500 transition-all w-72 bg-transparent text-[var(--text-primary)] tracking-widest shadow"
@@ -94,7 +121,7 @@ export default function Kiosk() {
             )}
           </div>
         </div>,
-        document.body
+        document.getElementById('modal-root') || document.body
       )}
     </div>
   );
