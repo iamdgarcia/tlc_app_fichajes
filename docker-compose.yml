@@ -1,0 +1,26 @@
+version: '3.8'
+services:
+  db:
+    image: postgres:16
+    restart: always
+    environment:
+      POSTGRES_DB: fichajes
+      POSTGRES_USER: fichajes
+      POSTGRES_PASSWORD: fichajes
+    ports:
+      - "5432:5432"
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+  app:
+    build: .
+    depends_on:
+      - db
+    environment:
+      DATABASE_URL: postgres://fichajes:fichajes@db:5432/fichajes
+      PORT: 3000
+    ports:
+      - "3000:3000"
+    volumes:
+      - .env:/app/backend/.env:ro
+volumes:
+  pgdata:

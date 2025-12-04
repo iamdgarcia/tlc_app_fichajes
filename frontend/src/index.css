@@ -1,0 +1,64 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Minimal Techno Kiosk Customizations */
+body {
+	background: linear-gradient(135deg, #0f2027 0%, #2c5364 100%);
+	min-height: 100vh;
+	font-family: 'Inter', 'Roboto', 'Segoe UI', Arial, sans-serif;
+	letter-spacing: 0.01em;
+}
+
+.kiosk-glass {
+	background: rgba(255,255,255,0.10);
+	border-radius: 2rem;
+	box-shadow: 0 8px 32px 0 rgba(31,38,135,0.18);
+	backdrop-filter: blur(8px);
+	border: 1.5px solid rgba(255,255,255,0.18);
+}
+
+.kiosk-btn {
+	transition: all 0.18s cubic-bezier(.4,0,.2,1);
+	font-size: 2.5rem;
+	font-weight: 700;
+	border-radius: 1.5rem;
+	padding: 2.2rem 3.5rem;
+	box-shadow: 0 4px 24px 0 rgba(0,0,0,0.10);
+	border: none;
+	outline: none;
+	margin: 0 1.5rem;
+	cursor: pointer;
+}
+.kiosk-btn.entrada {
+	background: linear-gradient(90deg, #43e97b 0%, #38f9d7 100%);
+	color: #0f2027;
+}
+.kiosk-btn.salida {
+	background: linear-gradient(90deg, #fa709a 0%, #fee140 100%);
+	color: #2c5364;
+}
+.kiosk-btn:active {
+	transform: scale(0.97);
+}
+
+.kiosk-title {
+	font-size: 3.2rem;
+	font-weight: 900;
+	color: #fff;
+	text-shadow: 0 2px 16px #0004;
+	margin-bottom: 2.5rem;
+	letter-spacing: 0.04em;
+}
+
+.kiosk-feedback {
+	margin-top: 2.5rem;
+	font-size: 1.5rem;
+	font-weight: 600;
+	border-radius: 1rem;
+	padding: 1.2rem 2.2rem;
+	background: rgba(255,255,255,0.18);
+	color: #fff;
+	box-shadow: 0 2px 12px 0 rgba(0,0,0,0.10);
+	text-align: center;
+}

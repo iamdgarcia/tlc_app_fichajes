@@ -1,0 +1,43 @@
+// Prisma schema for PostgreSQL
+// DATABASE_URL must be set in .env
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id        Int      @id @default(autoincrement())
+  name      String
+  dni       String   @unique
+  position  String
+  role      Role     @default(EMPLOYEE)
+  password  String   // hashed
+  clockings Clocking[]
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+enum Role {
+  ADMIN
+  EMPLOYEE
+}
+
+model Clocking {
+  id        Int      @id @default(autoincrement())
+  user      User     @relation(fields: [userId], references: [id])
+  userId    Int
+  type      ClockingType
+  timeIn    DateTime
+  timeOut   DateTime?
+  createdAt DateTime @default(now())
+}
+
+enum ClockingType {
+  ENTRADA
+  SALIDA
+}
