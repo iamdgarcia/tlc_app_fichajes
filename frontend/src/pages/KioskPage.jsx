@@ -1,5 +1,8 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import Kiosk from '../components/Kiosk/Kiosk';
+import { ThemeContext } from '../App';
+
 export default function KioskPage() {
-  return <Kiosk />;
+  const { dark } = useContext(ThemeContext);
+  return <Kiosk dark={dark} />;
 }
