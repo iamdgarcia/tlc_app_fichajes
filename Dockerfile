@@ -32,9 +32,10 @@ COPY --from=frontend-build /app/frontend/dist ./frontend/dist
 
 # Descargar wait-for-it.sh para esperar a que Postgres esté listo
 ADD https://raw.githubusercontent.com/vishnubob/wait-for-it/master/wait-for-it.sh ./wait-for-it.sh
-RUN apk add --no-cache bash && chmod +x ./wait-for-it.sh
+COPY backend/entrypoint.sh ./entrypoint.sh
+RUN apk add --no-cache bash && chmod +x ./wait-for-it.sh ./entrypoint.sh
 
-# CMD: Espera a que Postgres esté listo antes de arrancar la app (usar bash -c para permitir 'cd')
-CMD bash ./wait-for-it.sh db:5432 -- bash -c "cd backend && npx prisma generate && npx prisma migrate deploy && npx prisma db seed && node src/server.js"
+# CMD: Usar el script de entrada
+CMD ["./entrypoint.sh"]
 
 EXPOSE 3000

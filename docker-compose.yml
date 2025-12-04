@@ -18,6 +18,7 @@ services:
     environment:
       DATABASE_URL: postgres://fichajes:fichajes@db:5432/fichajes
       PORT: 3000
+      WAIT_FOR_DB: db:5432
     ports:
       - "3000:3000"
     volumes:
